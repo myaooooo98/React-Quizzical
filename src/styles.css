@@ -32,6 +32,10 @@ body {
     align-items: center;
 }
 
+.start {
+    display: none;
+}
+
 .title {
     font-family: 'Karla', sans-serif;
     color: #293264;
