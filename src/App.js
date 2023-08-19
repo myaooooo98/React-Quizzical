@@ -1,5 +1,6 @@
 import React from "react"
 import Intro from "./components/Intro"
+import Quiz from "./components/Quiz"
 
 export default function App() {
     const [isStartQuiz, setIsStartQuiz] = React.useState(false)
@@ -14,6 +15,11 @@ export default function App() {
             <Intro
                 isStartQuiz = {isStartQuiz} 
                 startQuiz = {startQuiz}
+            />
+            <Quiz 
+                isStartQuiz = {isStartQuiz}
+                question = 'this is a random testing'
+                option = 'this is the answer option'
             />
             <img src='./images/blobs.png' className="blob2"></img>
         </div>
