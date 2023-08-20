@@ -2,7 +2,15 @@ import React from "react"
 
 export default function Quiz(props) {
 
-    let containerClass = `quiz-container ${props.isStartQuiz ? '' : 'start'}`
+    let containerClass = `quiz-container ${props.isStartQuiz ? '' : 'show'}`
+    const [quizData, setQuizData] = React.useState([])
+    React.useEffect(() => {
+        fetch('https://opentdb.com/api.php?amount=10')
+        .then(res => res.json())
+        .then(data => setQuizData(data))
+    }, [])
+
+    console.log(quizData)
 
     return (
         <div className={containerClass}>
