@@ -1,40 +1,38 @@
 import React from "react"
+import AnsOption from "./AnsOption";
 
 export default function Quiz(props) {
 
-    let containerClass = `quiz-container ${props.isStartQuiz ? '' : 'show'}`
-    const [quizData, setQuizData] = React.useState([])
-    React.useEffect(() => {
-        fetch('https://opentdb.com/api.php?amount=10')
-        .then(res => res.json())
-        .then(data => setQuizData(data))
-    }, [])
+    const optionsArr = props.options.map(option => ({
+        option: option,
+        isCorrect: false
+    }))
 
-    console.log(quizData)
+    optionsArr.push({
+        option: props.answer,
+        isCorrect: true
+    })
+
+    function shuffleArray(arr) {
+        for (let i = arr.length - 1; i > 0; i--) {
+          const j = Math.floor(Math.random() * (i + 1)); // Generate a random index
+          [arr[i], arr[j]] = [arr[j], arr[i]]; // Swap elements
+        }
+      }
+      
+    shuffleArray(optionsArr)
+
+    const optionsElement = optionsArr.map(item => (
+        <AnsOption 
+            option = {item.option}
+            isCorrect = {item.isCorrect}
+        />
+    ))
 
     return (
-        <div className={containerClass}>
+        <div className="quiz-container">
             <h3 className="question">{props.question}</h3>
-            <button>
-                <label>
-                    <input 
-                        type="radio"
-                        name="options"
-                        className="option"
-                        value={props.option}
-                    /> 
-                    {props.option}
-                </label>
-                <label>
-                    <input 
-                        type="radio"
-                        name="options"
-                        className="option"
-                        value={props.option}
-                    /> 
-                    {props.option}
-                </label>
-            </button>
+            {optionsElement}
         </div>
     )
 }
