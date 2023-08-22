@@ -18,7 +18,11 @@ export default function Quiz(props) {
           const j = Math.floor(Math.random() * (i + 1)); // Generate a random index
           [arr[i], arr[j]] = [arr[j], arr[i]]; // Swap elements
         }
-      }
+    }
+
+    function checkAnswer() {
+        
+    }
       
     shuffleArray(optionsArr)
 
@@ -26,6 +30,7 @@ export default function Quiz(props) {
         <AnsOption 
             option = {item.option}
             isCorrect = {item.isCorrect}
+            onClick = {checkAnswer}
         />
     ))
 
