@@ -15,6 +15,7 @@ export default function App() {
 
     let quizElements = quizData.map(quiz => (
         <Quiz 
+            key = {quiz.question}
             question = {quiz.question}
             options = {quiz.incorrect_answers}
             answer = {quiz.correct_answer}

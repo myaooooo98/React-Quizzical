@@ -1,16 +1,21 @@
-import React from "react"
+import React, { useState } from "react"
+import {nanoid} from "nanoid"
 import AnsOption from "./AnsOption";
 
 export default function Quiz(props) {
 
     const optionsArr = props.options.map(option => ({
+        id: nanoid(),
         option: option,
-        isCorrect: false
+        isCorrect: false,
+        isChosen: false
     }))
 
     optionsArr.push({
+        id: nanoid(),
         option: props.answer,
-        isCorrect: true
+        isCorrect: true,
+        isChosen: false
     })
 
     function shuffleArray(arr) {
@@ -20,17 +25,28 @@ export default function Quiz(props) {
         }
     }
 
-    function checkAnswer() {
-        
-    }
-      
-    shuffleArray(optionsArr)
+    const [options, setOptions] = React.useState(shuffleArray(optionsArr))
 
-    const optionsElement = optionsArr.map(item => (
+    function chosen(id) {
+        setOptions(prevOption => prevOption.map(option => {
+            if (option.id === id) {
+                return {
+                    ...option,
+                    isChosen: !option.isChosen
+                } 
+            } else {
+                    return option
+            }
+        }))
+    }
+
+    const optionsElement = options.map(item => (
         <AnsOption 
+            key = {item.id}
             option = {item.option}
             isCorrect = {item.isCorrect}
-            onClick = {checkAnswer}
+            isChosen = {item.isChosen}
+            handleClick = {() => chosen(item.id)}
         />
     ))
 
