@@ -1,6 +1,8 @@
 import React from "react"
 import Intro from "./components/Intro"
 import Quiz from "./components/Quiz"
+import {nanoid} from "nanoid"
+
 
 export default function App() {
     const [quizData, setQuizData] = React.useState([])
@@ -13,14 +15,36 @@ export default function App() {
     console.log(quizData)
     const [isStartQuiz, setIsStartQuiz] = React.useState(false)
 
-    let quizElements = quizData.map(quiz => (
-        <Quiz 
-            key = {quiz.question}
-            question = {quiz.question}
-            options = {quiz.incorrect_answers}
-            answer = {quiz.correct_answer}
-        />
-    ))
+    function shuffleArray(arr) {
+        for (let i = arr.length - 1; i > 0; i--) {
+          const j = Math.floor(Math.random() * (i + 1)); // Generate a random index
+          [arr[i], arr[j]] = [arr[j], arr[i]]; // Swap elements
+        }
+    }
+
+    let quizElements = quizData.map(quiz => {
+        const optionsArr = quiz.incorrect_answers.map(option => ({
+            id: nanoid(),
+            option: option,
+            isCorrect: false,
+            isChosen: false
+        }))
+
+        optionsArr.push({
+            id: nanoid(),
+            option: quiz.correct_answer,
+            isCorrect: true,
+            isChosen: false
+        })
+
+        return (
+            <Quiz 
+                key = {quiz.question}
+                question = {quiz.question}
+                options = {shuffleArray(optionsArr)}
+            />
+        )
+    })
 
     function startQuiz() {
         setIsStartQuiz(true)
