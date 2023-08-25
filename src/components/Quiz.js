@@ -26,6 +26,16 @@ export default function Quiz(props) {
 
     const [options, setOptions] = React.useState(props.options)
 
+    const optionsElement = options.map(item => (
+        <AnsOption 
+            key = {item.id}
+            option = {item.option}
+            isCorrect = {item.isCorrect}
+            isChosen = {item.isChosen}
+            handleClick = {() => chosen(item.id)}
+        />
+    ))
+
     function chosen(id) {
         setOptions(prevOptions => prevOptions.map(option => {
             if (option.id === id) {
@@ -38,16 +48,6 @@ export default function Quiz(props) {
             }
         }))
     }
-
-    const optionsElement = options.map(item => (
-        <AnsOption 
-            key = {item.id}
-            option = {item.option}
-            isCorrect = {item.isCorrect}
-            isChosen = {item.isChosen}
-            handleClick = {() => chosen(item.id)}
-        />
-    ))
 
     return (
         <div className="quiz-container">

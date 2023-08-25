@@ -20,6 +20,7 @@ export default function App() {
           const j = Math.floor(Math.random() * (i + 1)); // Generate a random index
           [arr[i], arr[j]] = [arr[j], arr[i]]; // Swap elements
         }
+        return arr
     }
 
     let quizElements = quizData.map(quiz => {
