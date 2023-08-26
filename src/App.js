@@ -12,8 +12,12 @@ export default function App() {
         .then(data => setQuizData(data.results))
     }, [])
 
-    console.log(quizData)
     const [isStartQuiz, setIsStartQuiz] = React.useState(false)
+
+    function htmlDecode(input) {
+        var doc = new DOMParser().parseFromString(input, "text/html");
+        return doc.documentElement.textContent;
+      }
 
     function shuffleArray(arr) {
         for (let i = arr.length - 1; i > 0; i--) {
@@ -41,7 +45,7 @@ export default function App() {
         return (
             <Quiz 
                 key = {quiz.question}
-                question = {quiz.question}
+                question = {htmlDecode(quiz.question)}
                 options = {shuffleArray(optionsArr)}
             />
         )
