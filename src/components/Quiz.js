@@ -3,27 +3,6 @@ import AnsOption from "./AnsOption";
 
 export default function Quiz(props) {
 
-    // const optionsArr = props.options.map(option => ({
-    //     id: nanoid(),
-    //     option: option,
-    //     isCorrect: false,
-    //     isChosen: false
-    // }))
-
-    // optionsArr.push({
-    //     id: nanoid(),
-    //     option: props.answer,
-    //     isCorrect: true,
-    //     isChosen: false
-    // })
-
-    // function shuffleArray(arr) {
-    //     for (let i = arr.length - 1; i > 0; i--) {
-    //       const j = Math.floor(Math.random() * (i + 1)); // Generate a random index
-    //       [arr[i], arr[j]] = [arr[j], arr[i]]; // Swap elements
-    //     }
-    // }
-
     const [options, setOptions] = React.useState(props.options)
 
     const optionsElement = options.map(item => (

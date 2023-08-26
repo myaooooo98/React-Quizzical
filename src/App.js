@@ -51,6 +51,10 @@ export default function App() {
         setIsStartQuiz(true)
     }
 
+    function checkAns() {
+        console.log('checking')
+    }
+
     return (
         <div>
             <img src="./images/blobs (1).png" className="blob1"></img>
@@ -60,6 +64,7 @@ export default function App() {
             />
             <div className={isStartQuiz ? '' : 'show'}>
                 {quizElements}
+                <button className="checkAns" onClick={checkAns}>Check Answer</button>
             </div>
             <img src='./images/blobs.png' className="blob2"></img>
         </div>
