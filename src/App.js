@@ -13,6 +13,7 @@ export default function App() {
     }, [])
 
     const [isStartQuiz, setIsStartQuiz] = React.useState(false)
+    const [isCheck, setIsCheck] = React.useState(false)
 
     function htmlDecode(input) {
         var doc = new DOMParser().parseFromString(input, "text/html");
@@ -32,7 +33,7 @@ export default function App() {
             id: nanoid(),
             option: option,
             isCorrect: false,
-            isChosen: false
+            isChosen: false,
         }))
 
         optionsArr.push({
@@ -47,6 +48,7 @@ export default function App() {
                 key = {quiz.question}
                 question = {htmlDecode(quiz.question)}
                 options = {shuffleArray(optionsArr)}
+                isCheck = {isCheck}
             />
         )
     })
