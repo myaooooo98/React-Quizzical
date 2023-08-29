@@ -58,6 +58,7 @@ export default function App() {
     }
 
     function checkAns() {
+        setIsCheck(!isCheck)
         console.log('checking')
     }
 
