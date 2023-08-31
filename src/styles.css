@@ -60,14 +60,24 @@ body {
     background: #4D5B9E;
 }
 
-.intro-btn:hover {
+.intro-btn:hover, .checkAns:hover {
     font-weight: bold;
 }
 
-.intro-btn:active {
+.intro-btn:active, .checkAns:active {
     box-shadow: inset 5px 5px 10px -3px rgba(0, 0, 0, 0.7);
 }
 
 .chose {
     background-color: greenyellow;
+}
+
+.checkAns {
+    font-size: 10px;
+    padding: 10px 20px;
+    border-radius: 10px;
+    border: none;
+    font-size: 10px;
+    color: #F5F7FB;
+    background: #4D5B9E;
 }
