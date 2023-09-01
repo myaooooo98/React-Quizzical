@@ -44,12 +44,15 @@ export default function App() {
         })
 
         return (
-            <Quiz 
+            <>
+                <Quiz 
                 key = {quiz.question}
                 question = {htmlDecode(quiz.question)}
                 options = {shuffleArray(optionsArr)}
                 isCheck = {isCheck}
-            />
+                />
+                <hr />
+            </>
         )
     })
 
