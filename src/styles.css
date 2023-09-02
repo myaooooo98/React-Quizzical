@@ -8,7 +8,6 @@ body {
     font-family: "Inter", sans-serif;
     background: #F5F7FB;
     padding: 50px;
-    height: 100vh;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -22,15 +21,17 @@ body {
 }
 
 .blob2 {
-    position: absolute;
+    position: fixed;
     bottom: 0;
     left: 0;
     z-index: -1;
 }
 
 .intro-container {
+    height: 80vh;
     display: flex;
     flex-direction: column;
+    justify-content: center;
     align-items: center;
 }
 
@@ -38,10 +39,11 @@ body {
     display: none;
 }
 
-.title {
+.title, .question {
     font-family: 'Karla', sans-serif;
     color: #293264;
     margin-bottom: 10px;
+    font-weight: 700;
 }
 
 .description {
@@ -72,6 +74,11 @@ body {
     background-color: greenyellow;
 }
 
+.quiz-container {
+    display: flex;
+    flex-direction: column;
+}
+
 .checkAns {
     font-size: 10px;
     padding: 10px 20px;
@@ -80,5 +87,10 @@ body {
     font-size: 10px;
     color: #F5F7FB;
     background: #4D5B9E;
+    margin: 30px auto 0;
+    align-items: center;
 }
 
+.question-container {
+    margin: 15px;
+}

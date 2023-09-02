@@ -15,6 +15,8 @@ export default function App() {
     const [isStartQuiz, setIsStartQuiz] = React.useState(false)
     const [isCheck, setIsCheck] = React.useState(false)
 
+    let containerClass = `quiz-container ${isStartQuiz ? '' : 'show'}`    
+
     function htmlDecode(input) {
         var doc = new DOMParser().parseFromString(input, "text/html");
         return doc.documentElement.textContent;
@@ -46,10 +48,10 @@ export default function App() {
         return (
             <>
                 <Quiz 
-                key = {quiz.question}
-                question = {htmlDecode(quiz.question)}
-                options = {shuffleArray(optionsArr)}
-                isCheck = {isCheck}
+                    key = {quiz.question}
+                    question = {htmlDecode(quiz.question)}
+                    options = {shuffleArray(optionsArr)}
+                    isCheck = {isCheck}
                 />
                 <hr />
             </>
@@ -72,7 +74,7 @@ export default function App() {
                 isStartQuiz = {isStartQuiz} 
                 startQuiz = {startQuiz}
             />
-            <div className={isStartQuiz ? '' : 'show'}>
+            <div className={containerClass}>
                 {quizElements}
                 <button className="checkAns" onClick={checkAns}>Check Answer</button>
             </div>

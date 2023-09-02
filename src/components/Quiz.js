@@ -29,7 +29,7 @@ export default function Quiz(props) {
     }
 
     return (
-        <div className="quiz-container">
+        <div className="question-container">
             <h3 className="question">{props.question}</h3>
             {optionsElement}
         </div>
