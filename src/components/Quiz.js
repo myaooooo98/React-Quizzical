@@ -31,7 +31,9 @@ export default function Quiz(props) {
     return (
         <div className="question-container">
             <h3 className="question">{props.question}</h3>
-            {optionsElement}
+            <div className="options-container">
+                {optionsElement}
+            </div>
         </div>
     )
 }
