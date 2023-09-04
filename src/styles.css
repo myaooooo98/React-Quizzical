@@ -99,3 +99,10 @@ body {
     display: flex;
     justify-content: space-around;
 }
+
+.options {
+    border: 0.77px solid #4D5B9E;
+    border-radius: 8px;
+    padding: 8px 20px;
+    color: #4D5B9E;
+}
