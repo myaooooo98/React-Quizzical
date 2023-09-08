@@ -82,14 +82,15 @@ body {
 
 .checkAns {
     font-size: 10px;
-    padding: 10px 20px;
+    padding: 15px 30px;
     border-radius: 10px;
     border: none;
-    font-size: 10px;
+    font-size: 1em;
     color: #F5F7FB;
     background: #4D5B9E;
     margin: 30px auto 0;
     align-items: center;
+    font-weight: 700;
 }
 
 .question-container {
