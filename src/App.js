@@ -33,17 +33,17 @@ export default function App() {
     let quizElements = quizData.map(quiz => {
         const optionsArr = quiz.incorrect_answers.map(option => ({
             id: nanoid(),
-            option: option,
+            option: htmlDecode(option),
             isCorrect: false,
             isChosen: false,
         }))
 
         optionsArr.push({
             id: nanoid(),
-            option: quiz.correct_answer,
+            option: htmlDecode(quiz.correct_answer),
             isCorrect: true,
             isChosen: false
-        })
+    })
 
         return (
             <>
