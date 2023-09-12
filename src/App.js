@@ -6,6 +6,7 @@ import {nanoid} from "nanoid"
 
 export default function App() {
     const [quizData, setQuizData] = React.useState([])
+
     React.useEffect(() => {
         fetch('https://opentdb.com/api.php?amount=5')
         .then(res => res.json())
@@ -14,6 +15,13 @@ export default function App() {
 
     const [isStartQuiz, setIsStartQuiz] = React.useState(false)
     const [isCheck, setIsCheck] = React.useState(false)
+    const [chosenData, setChosenData] = React.useState([])
+
+    // push quiz element into chosenData when it is changed
+    // make quiz element into state
+    React.useEffect(() => {
+
+    }, )
 
     let containerClass = `quiz-container ${isStartQuiz ? '' : 'show'}`    
 
