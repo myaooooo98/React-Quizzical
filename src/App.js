@@ -15,12 +15,12 @@ export default function App() {
 
     const [isStartQuiz, setIsStartQuiz] = React.useState(false)
     const [isCheck, setIsCheck] = React.useState(false)
-    const [chosenData, setChosenData] = React.useState([])
+    // const [chosenData, setChosenData] = React.useState([])
 
     // push quiz element into chosenData when it is changed
     // make quiz element into state
     React.useEffect(() => {
-
+        
     }, )
 
     let containerClass = `quiz-container ${isStartQuiz ? '' : 'show'}`    
@@ -51,12 +51,15 @@ export default function App() {
             option: htmlDecode(quiz.correct_answer),
             isCorrect: true,
             isChosen: false
-    })
+        })
+
+        const quizID = nanoid()
 
         return (
             <>
                 <Quiz 
-                    key = {quiz.question}
+                    key = {quizID}
+                    id = {quizID}
                     question = {htmlDecode(quiz.question)}
                     options = {shuffleArray(optionsArr)}
                     isCheck = {isCheck}
