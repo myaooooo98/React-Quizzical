@@ -15,7 +15,9 @@ export default function App() {
 
     const [isStartQuiz, setIsStartQuiz] = React.useState(false)
     const [isCheck, setIsCheck] = React.useState(false)
-    // const [chosenData, setChosenData] = React.useState([])
+
+    // make each quiz to be object
+    const [quiz, setQuiz] = React.useState([])
 
     // push quiz element into chosenData when it is changed
     // make quiz element into state
