@@ -40,6 +40,7 @@ export default function App() {
         return arr
     }
 
+    console.log(quiz)
     let quizElements = quizData.map(quiz => {
         const optionsArr = quiz.incorrect_answers.map(option => ({
             id: nanoid(),
@@ -56,6 +57,13 @@ export default function App() {
         })
 
         const quizID = nanoid()
+
+        setQuiz(prevData =>
+            prevData.push({
+                quizID: quizID,
+                options: optionsArr
+            })
+        )
 
         return (
             <>
