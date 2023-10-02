@@ -18,12 +18,13 @@ export default function App() {
 
     // make each quiz to be object
     const [quiz, setQuiz] = React.useState([])
+    const tempQuiz = []
 
     // push quiz element into chosenData when it is changed
     // make quiz element into state
     React.useEffect(() => {
-        
-    }, )
+        setQuiz(tempQuiz)
+    }, [tempQuiz])
 
     let containerClass = `quiz-container ${isStartQuiz ? '' : 'show'}`    
 
@@ -40,7 +41,6 @@ export default function App() {
         return arr
     }
 
-    console.log(quiz)
     let quizElements = quizData.map(quiz => {
         const optionsArr = quiz.incorrect_answers.map(option => ({
             id: nanoid(),
@@ -58,12 +58,10 @@ export default function App() {
 
         const quizID = nanoid()
 
-        setQuiz(prevData =>
-            prevData.push({
-                quizID: quizID,
-                options: optionsArr
-            })
-        )
+        tempQuiz.push({
+            quizID: quizID,
+            options: optionsArr
+        })
 
         return (
             <>
