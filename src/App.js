@@ -18,13 +18,37 @@ export default function App() {
 
     // make each quiz to be object
     const [quiz, setQuiz] = React.useState([])
-    const tempQuiz = []
 
     // push quiz element into chosenData when it is changed
     // make quiz element into state
     React.useEffect(() => {
-        setQuiz(tempQuiz)
-    }, [tempQuiz])
+        const quiz = quizData[quizData.length - 1]
+        const optionsArr = quiz.incorrect_answers.map(option => ({
+            id: nanoid(),
+            option: htmlDecode(option),
+            isCorrect: false,
+            isChosen: false,
+        }))
+
+        optionsArr.push({
+            id: nanoid(),
+            option: htmlDecode(quiz.correct_answer),
+            isCorrect: true,
+            isChosen: false
+        })
+
+        const newQuiz = {
+            quizId: nanoid(),
+            question: htmlDecode(quiz.question),
+            options: shuffleArray(optionsArr),
+            isCheck: isCheck
+        }
+
+        setQuiz(prevData => ([
+            prevData,
+            newQuiz
+        ]))
+    }, [quizData])
 
     let containerClass = `quiz-container ${isStartQuiz ? '' : 'show'}`    
 
@@ -41,36 +65,15 @@ export default function App() {
         return arr
     }
 
-    let quizElements = quizData.map(quiz => {
-        const optionsArr = quiz.incorrect_answers.map(option => ({
-            id: nanoid(),
-            option: htmlDecode(option),
-            isCorrect: false,
-            isChosen: false,
-        }))
-
-        optionsArr.push({
-            id: nanoid(),
-            option: htmlDecode(quiz.correct_answer),
-            isCorrect: true,
-            isChosen: false
-        })
-
-        const quizID = nanoid()
-
-        tempQuiz.push({
-            quizID: quizID,
-            options: optionsArr
-        })
-
+    let quizElements = quiz.map(ele => {
         return (
             <>
                 <Quiz 
-                    key = {quizID}
-                    id = {quizID}
-                    question = {htmlDecode(quiz.question)}
-                    options = {shuffleArray(optionsArr)}
-                    isCheck = {isCheck}
+                    key = {ele.quizId}
+                    id = {ele.quizId}
+                    question = {ele.question}
+                    options = {ele.options}
+                    isCheck = {ele.isCheck}
                 />
                 <hr />
             </>
