@@ -19,35 +19,54 @@ export default function App() {
     // make each quiz to be object
     const [quiz, setQuiz] = React.useState([])
 
+    let quizElements
+
     // push quiz element into chosenData when it is changed
     // make quiz element into state
     React.useEffect(() => {
-        const quiz = quizData[quizData.length - 1]
-        const optionsArr = quiz.incorrect_answers.map(option => ({
-            id: nanoid(),
-            option: htmlDecode(option),
-            isCorrect: false,
-            isChosen: false,
-        }))
-
-        optionsArr.push({
-            id: nanoid(),
-            option: htmlDecode(quiz.correct_answer),
-            isCorrect: true,
-            isChosen: false
-        })
-
-        const newQuiz = {
-            quizId: nanoid(),
-            question: htmlDecode(quiz.question),
-            options: shuffleArray(optionsArr),
-            isCheck: isCheck
-        }
+        let newQuiz
+        quizData.map(quizEle => {
+            const optionsArr = quizEle.incorrect_answers.map(option => ({
+                id: nanoid(),
+                option: htmlDecode(option),
+                isCorrect: false,
+                isChosen: false,
+            }))
+    
+            optionsArr.push({
+                id: nanoid(),
+                option: htmlDecode(quizEle.correct_answer),
+                isCorrect: true,
+                isChosen: false
+            })
+    
+            newQuiz = {
+                quizId: nanoid(),
+                question: htmlDecode(quizEle.question),
+                options: shuffleArray(optionsArr),
+                isCheck: isCheck
+            }
+        })     
 
         setQuiz(prevData => ([
             prevData,
             newQuiz
         ]))
+
+        quizElements = quiz.map(ele => {
+            return (
+                <>
+                    <Quiz 
+                        key = {ele.quizId}
+                        id = {ele.quizId}
+                        question = {ele.question}
+                        options = {ele.options}
+                        isCheck = {ele.isCheck}
+                    />
+                    <hr />
+                </>
+            )
+        })
     }, [quizData])
 
     let containerClass = `quiz-container ${isStartQuiz ? '' : 'show'}`    
@@ -65,20 +84,7 @@ export default function App() {
         return arr
     }
 
-    let quizElements = quiz.map(ele => {
-        return (
-            <>
-                <Quiz 
-                    key = {ele.quizId}
-                    id = {ele.quizId}
-                    question = {ele.question}
-                    options = {ele.options}
-                    isCheck = {ele.isCheck}
-                />
-                <hr />
-            </>
-        )
-    })
+    
 
     function startQuiz() {
         setIsStartQuiz(true)
