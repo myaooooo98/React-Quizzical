@@ -19,55 +19,39 @@ export default function App() {
     // make each quiz to be object
     const [quiz, setQuiz] = React.useState([])
 
-    let quizElements
-
     // push quiz element into chosenData when it is changed
     // make quiz element into state
-    React.useEffect(() => {
-        let newQuiz
-        quizData.map(quizEle => {
-            const optionsArr = quizEle.incorrect_answers.map(option => ({
-                id: nanoid(),
-                option: htmlDecode(option),
-                isCorrect: false,
-                isChosen: false,
-            }))
-    
-            optionsArr.push({
-                id: nanoid(),
-                option: htmlDecode(quizEle.correct_answer),
-                isCorrect: true,
-                isChosen: false
-            })
-    
-            newQuiz = {
-                quizId: nanoid(),
-                question: htmlDecode(quizEle.question),
-                options: shuffleArray(optionsArr),
-                isCheck: isCheck
-            }
-        })     
 
-        setQuiz(prevData => ([
-            prevData,
-            newQuiz
-        ]))
+    const quizElements = quizData.map(quizEle => {
+        const optionsArr = quizEle.incorrect_answers.map(option => ({
+            id: nanoid(),
+            option: htmlDecode(option),
+            isCorrect: false,
+            isChosen: false,
+        }))
 
-        quizElements = quiz.map(ele => {
-            return (
-                <>
-                    <Quiz 
-                        key = {ele.quizId}
-                        id = {ele.quizId}
-                        question = {ele.question}
-                        options = {ele.options}
-                        isCheck = {ele.isCheck}
-                    />
-                    <hr />
-                </>
-            )
+        optionsArr.push({
+            id: nanoid(),
+            option: htmlDecode(quizEle.correct_answer),
+            isCorrect: true,
+            isChosen: false
         })
-    }, [quizData])
+
+        const id = nanoid()
+        
+        return (
+            <>
+                <Quiz 
+                    key = {id}
+                    id = {id}
+                    question = {htmlDecode(quizEle.question)}
+                    options = {shuffleArray(optionsArr)}
+                    isCheck = {isCheck}
+                />
+                <hr />
+            </>
+        )
+    })
 
     let containerClass = `quiz-container ${isStartQuiz ? '' : 'show'}`    
 
