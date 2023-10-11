@@ -1,4 +1,4 @@
-import React, { useState } from "react"
+import React from "react"
 import AnsOption from "./AnsOption";
 
 export default function Quiz(props) {

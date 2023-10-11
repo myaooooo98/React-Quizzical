@@ -16,12 +16,6 @@ export default function App() {
     const [isStartQuiz, setIsStartQuiz] = React.useState(false)
     const [isCheck, setIsCheck] = React.useState(false)
 
-    // make each quiz to be object
-    const [quiz, setQuiz] = React.useState([])
-
-    // push quiz element into chosenData when it is changed
-    // make quiz element into state
-
     const quizElements = quizData.map(quizEle => {
         const optionsArr = quizEle.incorrect_answers.map(option => ({
             id: nanoid(),
@@ -81,7 +75,7 @@ export default function App() {
 
     return (
         <div>
-            <img src="./images/blobs (1).png" className="blob1"></img>
+            <img src="./images/blobs (1).png" className="blob1" alt=""></img>
             <Intro
                 isStartQuiz = {isStartQuiz} 
                 startQuiz = {startQuiz}
@@ -90,7 +84,7 @@ export default function App() {
                 {quizElements}
                 <button className="checkAns" onClick={checkAns}>Check Answer</button>
             </div>
-            <img src='./images/blobs.png' className="blob2"></img>
+            <img src='./images/blobs.png' className="blob2" alt=""></img>
         </div>
     )
 }
