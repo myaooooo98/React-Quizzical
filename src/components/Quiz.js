@@ -17,6 +17,7 @@ export default function Quiz(props) {
 
     React.useEffect(() => {
         // do something here to change the background of options based on the correct answer is chosen or not
+        
     }, [props.isCheck])
 
     function chosen(id) {
