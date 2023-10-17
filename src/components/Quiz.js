@@ -12,13 +12,16 @@ export default function Quiz(props) {
             isCorrect = {item.isCorrect}
             isChosen = {item.isChosen}
             handleClick = {() => chosen(item.id)}
+            isCheck = {props.isCheck}
         />
     ))
 
     React.useEffect(() => {
         // do something here to change the background of options based on the correct answer is chosen or not
-        
-    }, [props.isCheck])
+        if (props.isCheck) {
+            
+        }
+    }, [props.isCheck, options])
 
     function chosen(id) {
         setOptions(prevOptions => prevOptions.map(option => {
