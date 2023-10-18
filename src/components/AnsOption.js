@@ -1,12 +1,12 @@
 import React from "react"
 
 export default function AnsOption(props) {
-    const chosenClass = props.isChosen ? 'chosen' : 'options'
+    const chosenClass = props.isChosen ? 'chosen options' : 'options'
     // const finalAnswer = something ? 'green' : 'red'
     let checkClass
     
     if (props.isCheck) {
-        checkClass = props.isCorrect ? 'correct' : 'wrong'
+        checkClass = props.isCorrect ? 'correct options' : 'wrong options'
     }
 
     return (
