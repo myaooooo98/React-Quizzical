@@ -1,20 +1,18 @@
 import React from "react"
 
 export default function AnsOption(props) {
-    const [checkedClass, setCheckedClass] = React.useState('')
-
     const chosenClass = props.isChosen ? 'chosen options' : 'options'
 
-    React.useEffect(() => {
-        if (props.isCheck) {
+    let checkedClass
+    if (props.isCheck) {
+        if (props.isChosen) {
             if (props.isCorrect) {
-                setCheckedClass('correct options')
+                checkedClass = 'correct options'
             }
-            else {
-                setCheckedClass('wrong options')
-            }
+            checkedClass = 'wrong options'
         }
-    }, [props.isCheck, props.isChosen, props.isCorrect])
+        checkedClass = 'options'
+    }
 
     return (
         <button
