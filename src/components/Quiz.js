@@ -4,6 +4,7 @@ import AnsOption from "./AnsOption";
 export default function Quiz(props) {
 
     const [options, setOptions] = React.useState(props.options)
+    const [checkClass, setCheckClass] = React.useState('')
 
     const optionsElement = options.map(item => (
         <AnsOption 
@@ -13,13 +14,23 @@ export default function Quiz(props) {
             isChosen = {item.isChosen}
             handleClick = {() => chosen(item.id)}
             isCheck = {props.isCheck}
+            checkClass = {checkClass}
         />
     ))
 
     React.useEffect(() => {
         // do something here to change the background of options based on the correct answer is chosen or not
         if (props.isCheck) {
-            
+            options.forEach(item => {
+                if (item.isChosen && item.isCorrect) {
+                    setCheckClass('correct options')
+                }
+                if (item.isChosen) {
+                    setCheckClass('wrong options')
+                } else {
+                    setCheckClass('options')
+                }
+            });
         }
     }, [props.isCheck, options])
 
