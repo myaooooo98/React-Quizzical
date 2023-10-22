@@ -1,6 +1,7 @@
 import React from "react"
 
 export default function AnsOption(props) {
+    const [checkClass, setCheckClass] = React.useState('')
     const chosenClass = props.isChosen ? 'chosen options' : 'options'
 
     // let checkedClass
@@ -14,9 +15,23 @@ export default function AnsOption(props) {
     //     checkedClass = 'options'
     // }
 
+    React.useEffect(() => {
+        // do something here to change the background of options based on the correct answer is chosen or not
+        if (props.isCheck) {
+            if (props.isChosen && props.isCorrect) {
+                setCheckClass('correct options')
+            }
+            if (props.isChosen) {
+                setCheckClass('wrong options')
+            } else {
+                setCheckClass('options')
+            }
+        };
+    }, [props.isCheck, props.isChosen, props.isCorrect])
+
     return (
         <button
-            className={props.isCheck ? props.checkClass : chosenClass}
+            className={props.isCheck ? checkClass : chosenClass}
             value={props.isCorrect}
             onClick={props.handleClick}
         >

@@ -28,7 +28,7 @@ export default function App() {
             id: nanoid(),
             option: htmlDecode(quizEle.correct_answer),
             isCorrect: true,
-            isChosen: false
+            isChosen: false,
         })
 
         const id = nanoid()
@@ -61,8 +61,6 @@ export default function App() {
         }
         return arr
     }
-
-    
 
     function startQuiz() {
         setIsStartQuiz(true)
