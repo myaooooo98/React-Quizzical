@@ -118,9 +118,11 @@ body {
 }
 
 .correct {
-    background: green;
+    background: #94D7A2;
+    ;
 }
 
 .wrong {
-    background: red;
+    background: #F8BCBC;
+    ;
 }
