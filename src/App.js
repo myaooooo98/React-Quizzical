@@ -6,6 +6,9 @@ import {nanoid} from "nanoid"
 
 export default function App() {
     const [quizData, setQuizData] = React.useState([])
+    const [quizElement, setQuizElement] = React.useState()
+    const [isStartQuiz, setIsStartQuiz] = React.useState(false)
+    const [isCheck, setIsCheck] = React.useState(false)
 
     React.useEffect(() => {
         fetch('https://opentdb.com/api.php?amount=5')
@@ -13,39 +16,69 @@ export default function App() {
         .then(data => setQuizData(data.results))
     }, [])
 
-    const [isStartQuiz, setIsStartQuiz] = React.useState(false)
-    const [isCheck, setIsCheck] = React.useState(false)
-
-    const quizElements = quizData.map(quizEle => {
-        const optionsArr = quizEle.incorrect_answers.map(option => ({
-            id: nanoid(),
-            option: htmlDecode(option),
-            isCorrect: false,
-            isChosen: false,
+    React.useEffect(() => {
+        setQuizElement(quizData.map(quizEle => {
+            const optionsArr = quizEle.incorrect_answers.map(option => ({
+                id: nanoid(),
+                option: htmlDecode(option),
+                isCorrect: false,
+                isChosen: false,
+            }))
+    
+            optionsArr.push({
+                id: nanoid(),
+                option: htmlDecode(quizEle.correct_answer),
+                isCorrect: true,
+                isChosen: false,
+            })
+    
+            const id = nanoid()
+            
+            return (
+                <>
+                    <Quiz 
+                        key = {id}
+                        id = {id}
+                        question = {htmlDecode(quizEle.question)}
+                        options = {shuffleArray(optionsArr)}
+                        isCheck = {isCheck}
+                    />
+                    <hr />
+                </>
+            )
         }))
+    }, [quizData, isCheck])
 
-        optionsArr.push({
-            id: nanoid(),
-            option: htmlDecode(quizEle.correct_answer),
-            isCorrect: true,
-            isChosen: false,
-        })
+    // const quizElements = quizData.map(quizEle => {
+    //     const optionsArr = quizEle.incorrect_answers.map(option => ({
+    //         id: nanoid(),
+    //         option: htmlDecode(option),
+    //         isCorrect: false,
+    //         isChosen: false,
+    //     }))
 
-        const id = nanoid()
+    //     optionsArr.push({
+    //         id: nanoid(),
+    //         option: htmlDecode(quizEle.correct_answer),
+    //         isCorrect: true,
+    //         isChosen: false,
+    //     })
+
+    //     const id = nanoid()
         
-        return (
-            <>
-                <Quiz 
-                    key = {id}
-                    id = {id}
-                    question = {htmlDecode(quizEle.question)}
-                    options = {shuffleArray(optionsArr)}
-                    isCheck = {isCheck}
-                />
-                <hr />
-            </>
-        )
-    })
+    //     return (
+    //         <>
+    //             <Quiz 
+    //                 key = {id}
+    //                 id = {id}
+    //                 question = {htmlDecode(quizEle.question)}
+    //                 options = {shuffleArray(optionsArr)}
+    //                 isCheck = {isCheck}
+    //             />
+    //             <hr />
+    //         </>
+    //     )
+    // })
 
     let containerClass = `quiz-container ${isStartQuiz ? '' : 'show'}`    
 
@@ -79,7 +112,7 @@ export default function App() {
                 startQuiz = {startQuiz}
             />
             <div className={containerClass}>
-                {quizElements}
+                {quizElement}
                 <button className="checkAns" onClick={checkAns}>Check Answer</button>
             </div>
             <img src='./images/blobs.png' className="blob2" alt=""></img>
