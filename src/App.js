@@ -16,6 +16,10 @@ export default function App() {
         .then(data => setQuizData(data.results))
     }, [])
 
+    // need a state that hold all the changes - answer is chosen
+    // make sure every question has a chosen answer
+    // make sure only one answer can be chosen per question - disabled it when there are chosen answer?
+    
     React.useEffect(() => {
         setQuizElement(quizData.map(quizEle => {
             const optionsArr = quizEle.incorrect_answers.map(option => ({
