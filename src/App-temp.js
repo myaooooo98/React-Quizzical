@@ -13,13 +13,28 @@ export default function App() {
     }, [])
 
     useEffect(() => {
-        setQuiz(
-            quizData.map(data => ({
+        const newQuiz = quizData.map(data => {
+            const optionsArr = data.incorrect_answers
+                                .map(opt => ({
+                                    option: encode(opt),
+                                    isCorrect: false,
+                                    isHeld: false,
+                                }))
+            optionsArr.push({
+                option: encode(data.correct_answer),
+                isCorrect: true,
+                isHeld: false
+            })
+
+            return {
                 id: nanoid(),
-                question: encode(data.question)
-            }))
-        )
-    }, quizData)
+                question: encode(data.question),
+                optionsArr: shuffleArray(optionsArr)
+            }
+        })
+        setQuiz(newQuiz)
+    }, [quizData])
+
 
     function shuffleArray(arr) {
         for (let i = arr.length - 1; i > 0; i--) {
