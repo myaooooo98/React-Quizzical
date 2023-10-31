@@ -2,7 +2,7 @@ import React from "react"
 
 export default function Intro(props) {
 
-    let containerClass = `intro-container ${props.isStartQuiz ? 'show' : ''}`
+    let containerClass = `intro-container ${props.isStart ? 'show' : ''}`
 
     return (
         <div className={containerClass}>
