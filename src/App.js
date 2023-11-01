@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import { nanoid } from "nanoid";
 import { encode } from "he";
 import Intro from "./components/Intro";
+import Quiz from "./components/Quiz.-temp";
 
 export default function App() {
     const [quizData, setQuizData] = useState([])
@@ -55,6 +56,7 @@ export default function App() {
                 isStart = {isStart} 
                 startQuiz = {() => setIsStart(true)}
             />
+            <Quiz />
             {/*
             <div className={containerClass}>
                 {quizElement}

@@ -10,9 +10,7 @@ export default function Quiz(props) {
             key = {item.id}
             option = {item.option}
             isCorrect = {item.isCorrect}
-            isChosen = {item.isChosen}
             handleClick = {() => chosen(item.id)}
-            isCheck = {props.isCheck}
         />
     ))
 
