@@ -1,8 +1,9 @@
 import { useEffect, useState } from "react";
 import { nanoid } from "nanoid";
-import { encode } from "he";
+import { decode } from "he";
 import Intro from "./components/Intro";
 import Quiz from "./components/Quiz.-temp";
+import Option from "./components/Option";
 
 export default function App() {
     const [quizData, setQuizData] = useState([])
@@ -21,19 +22,19 @@ export default function App() {
         const newQuiz = quizData.map(data => {
             const optionsArr = data.incorrect_answers
                                 .map(opt => ({
-                                    option: encode(opt),
+                                    option: decode(opt),
                                     isCorrect: false,
                                     isHeld: false,
                                 }))
             optionsArr.push({
-                option: encode(data.correct_answer),
+                option: decode(data.correct_answer),
                 isCorrect: true,
                 isHeld: false
             })
 
             return {
                 id: nanoid(),
-                question: encode(data.question),
+                question: decode(data.question),
                 optionsArr: shuffleArray(optionsArr)
             }
         })
@@ -49,6 +50,9 @@ export default function App() {
         return arr
     }
 
+    console.log(quiz[0].optionsArr)
+    // set option element here, and then put into quiz component
+
     return (
         <>
             <img src="./images/blobs (1).png" className="blob1" alt=""></img>
@@ -56,7 +60,8 @@ export default function App() {
                 isStart = {isStart} 
                 startQuiz = {() => setIsStart(true)}
             />
-            <Quiz />
+            {isStart && <Quiz quiz = {quiz[0]} />}
+            <Option option = {quiz[0].optionsArr} />
             {/*
             <div className={containerClass}>
                 {quizElement}
