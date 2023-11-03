@@ -3,7 +3,6 @@ import { nanoid } from "nanoid";
 import { decode } from "he";
 import Intro from "./components/Intro";
 import Quiz from "./components/Quiz.-temp";
-import Option from "./components/Option";
 
 export default function App() {
     const [quizData, setQuizData] = useState([])
@@ -50,7 +49,14 @@ export default function App() {
         return arr
     }
 
-    console.log(quiz[0].optionsArr)
+    const quizElement = quiz.map(item => (
+        <Quiz 
+            key = {item.id}
+            id = {item.id}
+            question = {item.question} 
+            options = {item.optionsArr}
+        />
+    ))
     // set option element here, and then put into quiz component
 
     return (
@@ -60,13 +66,11 @@ export default function App() {
                 isStart = {isStart} 
                 startQuiz = {() => setIsStart(true)}
             />
-            {isStart && <Quiz quiz = {quiz[0]} />}
-            <Option option = {quiz[0].optionsArr} />
-            {/*
-            <div className={containerClass}>
+            
+            <div className={`quiz-container ${isStart ? '' : 'show'}`}>
                 {quizElement}
-                <button className="checkAns" onClick={checkAns}>Check Answer</button>
-            </div> */}
+                {/* <button className="checkAns" onClick={checkAns}>Check Answer</button> */}
+            </div>
             <img src='./images/blobs.png' className="blob2" alt=""></img>
         </>
     )
