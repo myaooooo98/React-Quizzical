@@ -1,5 +1,5 @@
 export default function Option(props) {
     return (
-        <button>{props.option}</button>
+        <button className="options">{props.option}</button>
     )
 }

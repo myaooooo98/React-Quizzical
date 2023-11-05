@@ -21,11 +21,13 @@ export default function App() {
         const newQuiz = quizData.map(data => {
             const optionsArr = data.incorrect_answers
                                 .map(opt => ({
+                                    optId: nanoid(),
                                     option: decode(opt),
                                     isCorrect: false,
                                     isHeld: false,
                                 }))
             optionsArr.push({
+                optId: nanoid(),
                 option: decode(data.correct_answer),
                 isCorrect: true,
                 isHeld: false
@@ -49,6 +51,29 @@ export default function App() {
         return arr
     }
 
+    function chosen(id, optId) {
+        // setQuiz(prevQuiz => prevQuiz.map(item => {
+        //     if(item.id === id) {
+        //         for(let i = 0; i < item.optionsArr; i++) {
+        //             if(item.optionsArr.optId === optId) {
+                       
+        //                 }
+        //             }
+        //         }
+        //     }
+        // }))
+        // setOptions(prevOptions => prevOptions.map(option => {
+        //     if (option.id === id) {
+        //         return {
+        //             ...option,
+        //             isChosen: !option.isChosen
+        //         }
+        //     } else {
+        //         return option
+        //     }
+        // }))
+    }
+
     const quizElement = quiz.map(item => (
         <Quiz 
             key = {item.id}
@@ -69,7 +94,7 @@ export default function App() {
             
             <div className={`quiz-container ${isStart ? '' : 'show'}`}>
                 {quizElement}
-                {/* <button className="checkAns" onClick={checkAns}>Check Answer</button> */}
+                <button className="checkAns">Check Answer</button>
             </div>
             <img src='./images/blobs.png' className="blob2" alt=""></img>
         </>
