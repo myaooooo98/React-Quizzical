@@ -52,26 +52,26 @@ export default function App() {
     }
 
     function chosen(id, optId) {
-        // setQuiz(prevQuiz => prevQuiz.map(item => {
-        //     if(item.id === id) {
-        //         for(let i = 0; i < item.optionsArr; i++) {
-        //             if(item.optionsArr.optId === optId) {
-                       
-        //                 }
-        //             }
-        //         }
-        //     }
-        // }))
-        // setOptions(prevOptions => prevOptions.map(option => {
-        //     if (option.id === id) {
-        //         return {
-        //             ...option,
-        //             isChosen: !option.isChosen
-        //         }
-        //     } else {
-        //         return option
-        //     }
-        // }))
+        setQuiz(prevQuiz => {
+            const updatedQuiz = prevQuiz.map(quiz => {
+                if (quiz.id === id) {
+                    const updatedAnswers = quiz.optionsArr.map(option => {
+                        if (option.optId === optId) {
+                            return {
+                                ...option, 
+                                isHeld: !option.isHeld}
+                        }
+                        return option
+                    })
+                    return {
+                        ...quiz,
+                        optionsArr: updatedAnswers
+                    } 
+                }
+                return quiz
+            })
+            return updatedQuiz
+        })
     }
 
     const quizElement = quiz.map(item => (
@@ -80,6 +80,7 @@ export default function App() {
             id = {item.id}
             question = {item.question} 
             options = {item.optionsArr}
+            handleChosenOption = {(id, optId) => chosen(id, optId)}
         />
     ))
     // set option element here, and then put into quiz component
