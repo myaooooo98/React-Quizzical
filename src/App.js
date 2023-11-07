@@ -8,6 +8,7 @@ export default function App() {
     const [quizData, setQuizData] = useState([])
     const [quiz, setQuiz] = useState([])
     const [isStart, setIsStart] = useState(false)
+    const [isCheck, setIsCheck] = useState(false)
 
     useEffect(() => {
         if (isStart) {
@@ -74,6 +75,10 @@ export default function App() {
         })
     }
 
+    function checkAns() {
+        setIsCheck(true)
+    }
+
     const quizElement = quiz.map(item => (
         <Quiz 
             key = {item.id}
@@ -83,7 +88,6 @@ export default function App() {
             handleChosenOption = {(id, optId) => chosen(id, optId)}
         />
     ))
-    // set option element here, and then put into quiz component
 
     return (
         <>
@@ -95,7 +99,7 @@ export default function App() {
             
             <div className={`quiz-container ${isStart ? '' : 'show'}`}>
                 {quizElement}
-                <button className="checkAns">Check Answer</button>
+                <button className="checkAns" onClick={checkAns}>Check Answer</button>
             </div>
             <img src='./images/blobs.png' className="blob2" alt=""></img>
         </>
