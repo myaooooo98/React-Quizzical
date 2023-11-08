@@ -8,7 +8,6 @@ export default function App() {
     const [quizData, setQuizData] = useState([])
     const [quiz, setQuiz] = useState([])
     const [isStart, setIsStart] = useState(false)
-    const [isCheck, setIsCheck] = useState(false)
 
     useEffect(() => {
         if (isStart) {
@@ -26,12 +25,14 @@ export default function App() {
                                     option: decode(opt),
                                     isCorrect: false,
                                     isHeld: false,
+                                    newClass: 'options'
                                 }))
             optionsArr.push({
                 optId: nanoid(),
                 option: decode(data.correct_answer),
                 isCorrect: true,
-                isHeld: false
+                isHeld: false,
+                newClass: 'options'
             })
 
             return {
@@ -42,7 +43,6 @@ export default function App() {
         })
         setQuiz(newQuiz)
     }, [quizData])
-
 
     function shuffleArray(arr) {
         for (let i = arr.length - 1; i > 0; i--) {
@@ -60,7 +60,9 @@ export default function App() {
                         if (option.optId === optId) {
                             return {
                                 ...option, 
-                                isHeld: !option.isHeld}
+                                isHeld: !option.isHeld,
+                                newClass: option.isHeld ? 'options chosen' : 'options'
+                            }
                         }
                         return option
                     })
@@ -76,7 +78,27 @@ export default function App() {
     }
 
     function checkAns() {
-        setIsCheck(true)
+        const updatedQuiz = quiz.map((item) => {
+            const updatedOptionsArr = item.optionsArr.map((opt) => {
+            if (opt.isHeld) {
+                if (opt.isCorrect) {
+                return { ...opt, newClass: 'correct' };
+                } else {
+                const correctOption = item.optionsArr.find(
+                    (o) => o.isCorrect === true
+                );
+                return [
+                    { ...opt, bgColor: 'wrong' },
+                    { ...correctOption, newClass: 'correct' },
+                ];
+                }
+            } else {
+                return opt;
+            }
+            });
+            return { ...item, optionsArr: updatedOptionsArr };
+        });
+        setQuiz(updatedQuiz);
     }
 
     const quizElement = quiz.map(item => (
