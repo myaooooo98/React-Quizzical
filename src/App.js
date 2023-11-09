@@ -8,6 +8,7 @@ export default function App() {
     const [quizData, setQuizData] = useState([])
     const [quiz, setQuiz] = useState([])
     const [isStart, setIsStart] = useState(false)
+    const [isCheck, setIsCheck] = useState(false)
 
     useEffect(() => {
         if (isStart) {
@@ -25,20 +26,18 @@ export default function App() {
                                     option: decode(opt),
                                     isCorrect: false,
                                     isHeld: false,
-                                    newClass: 'options'
                                 }))
             optionsArr.push({
                 optId: nanoid(),
                 option: decode(data.correct_answer),
                 isCorrect: true,
                 isHeld: false,
-                newClass: 'options'
             })
 
             return {
                 id: nanoid(),
                 question: decode(data.question),
-                optionsArr: shuffleArray(optionsArr)
+                optionsArr: shuffleArray(optionsArr),
             }
         })
         setQuiz(newQuiz)
@@ -78,27 +77,28 @@ export default function App() {
     }
 
     function checkAns() {
-        const updatedQuiz = quiz.map((item) => {
-            const updatedOptionsArr = item.optionsArr.map((opt) => {
-            if (opt.isHeld) {
-                if (opt.isCorrect) {
-                return { ...opt, newClass: 'correct' };
-                } else {
-                const correctOption = item.optionsArr.find(
-                    (o) => o.isCorrect === true
-                );
-                return [
-                    { ...opt, bgColor: 'wrong' },
-                    { ...correctOption, newClass: 'correct' },
-                ];
-                }
-            } else {
-                return opt;
-            }
-            });
-            return { ...item, optionsArr: updatedOptionsArr };
-        });
-        setQuiz(updatedQuiz);
+        setIsCheck(true)
+        // const updatedQuiz = quiz.map((item) => {
+        //     const updatedOptionsArr = item.optionsArr.map((opt) => {
+        //     if (opt.isHeld) {
+        //         if (opt.isCorrect) {
+        //         return { ...opt, newClass: 'correct' };
+        //         } else {
+        //         const correctOption = item.optionsArr.find(
+        //             (o) => o.isCorrect === true
+        //         );
+        //         return [
+        //             { ...opt, bgColor: 'wrong' },
+        //             { ...correctOption, newClass: 'correct' },
+        //         ];
+        //         }
+        //     } else {
+        //         return opt;
+        //     }
+        //     });
+        //     return { ...item, optionsArr: updatedOptionsArr };
+        // });
+        // setQuiz(updatedQuiz);
     }
 
     const quizElement = quiz.map(item => (
@@ -108,6 +108,7 @@ export default function App() {
             question = {item.question} 
             options = {item.optionsArr}
             handleChosenOption = {(id, optId) => chosen(id, optId)}
+            isCheck = {isCheck}
         />
     ))
 

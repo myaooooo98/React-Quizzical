@@ -11,7 +11,11 @@ export default function Quiz(props) {
                     <button
                         key={item.optId}
                         onClick={() => props.handleChosenOption(props.id, item.optId)}
-                        className={item.newClass}
+                        className={` options 
+                            ${item.isHeld && 'chosen'}
+                            ${props.isCheck && item.isCorrect && 'correct'}
+                            ${props.isCheck && item.isHeld && !item.isCorrect && 'wrong'}
+                        `}
                     >
                         {item.option}
                     </button>
