@@ -39,7 +39,7 @@ body {
     display: none;
 }
 
-.title, .question {
+.title {
     font-family: 'Karla', sans-serif;
     color: #293264;
     margin-bottom: 10px;
@@ -62,11 +62,11 @@ body {
     background: #4D5B9E;
 }
 
-.intro-btn:hover, .checkAns:hover {
+.intro-btn:hover, .bottom button:hover {
     font-weight: bold;
 }
 
-.intro-btn:active, .checkAns:active {
+.intro-btn:active, .bottom button:active {
     box-shadow: inset 5px 5px 10px -3px rgba(0, 0, 0, 0.7);
 }
 
@@ -77,24 +77,36 @@ body {
 .quiz-container {
     display: flex;
     flex-direction: column;
-    padding: 50px;
+    padding: 30px;
+    gap: 15px;
 }
 
-.checkAns {
-    font-size: 10px;
+.bottom {
+    margin-top: 30px;
+    display: flex;
+    justify-content: center;
+}
+
+.bottom button {
+    font-family: "Inter", sans-serif;
     padding: 15px 30px;
-    border-radius: 10px;
+    border-radius: 15px;
     border: none;
-    font-size: 1em;
     color: #F5F7FB;
     background: #4D5B9E;
-    margin: 30px auto 0;
     align-items: center;
-    font-weight: 700;
 }
 
 .question-container {
-    margin: 15px;
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+.question {
+    font-family: 'Karla', sans-serif;
+    color: #293264;
+    font-weight: 700;
 }
 
 .options-container {
@@ -104,12 +116,14 @@ body {
 }
 
 .options {
-    border-radius: 15px;
-    padding: 8px 20px;
-    border: 1px solid #4D5B9E;
-    color: #4D5B9E;
+    border-radius: 10px;
+    padding: 6px 20px;
+    border: 1.3px solid #4D5B9E;
+    color: #293264;
     background: transparent;
-    font-weight: 700;
+    font-weight: 500;
+    font-family: "Inter", sans-serif;
+    text-align: center;
 }
 
 .chosen {
@@ -119,10 +133,28 @@ body {
 
 .correct {
     background: #94D7A2;
-    ;
+    border: none;
 }
 
 .wrong {
     background: #F8BCBC;
-    ;
+    border: none;
+}
+
+.check {
+    opacity: 50%;
+}
+
+.new-game-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.new-game-container p {
+    font-size: 15px;
+    font-weight: 700;
+    line-height: 15px;
+    color: #293264;
+    padding: 0 40px;
 }

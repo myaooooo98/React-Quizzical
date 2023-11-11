@@ -9,6 +9,7 @@ export default function App() {
     const [quiz, setQuiz] = useState([])
     const [isStart, setIsStart] = useState(false)
     const [isCheck, setIsCheck] = useState(false)
+    const [score, setScore] = useState(0)
 
     useEffect(() => {
         if (isStart) {
@@ -78,27 +79,6 @@ export default function App() {
 
     function checkAns() {
         setIsCheck(true)
-        // const updatedQuiz = quiz.map((item) => {
-        //     const updatedOptionsArr = item.optionsArr.map((opt) => {
-        //     if (opt.isHeld) {
-        //         if (opt.isCorrect) {
-        //         return { ...opt, newClass: 'correct' };
-        //         } else {
-        //         const correctOption = item.optionsArr.find(
-        //             (o) => o.isCorrect === true
-        //         );
-        //         return [
-        //             { ...opt, bgColor: 'wrong' },
-        //             { ...correctOption, newClass: 'correct' },
-        //         ];
-        //         }
-        //     } else {
-        //         return opt;
-        //     }
-        //     });
-        //     return { ...item, optionsArr: updatedOptionsArr };
-        // });
-        // setQuiz(updatedQuiz);
     }
 
     const quizElement = quiz.map(item => (
@@ -122,7 +102,16 @@ export default function App() {
             
             <div className={`quiz-container ${isStart ? '' : 'show'}`}>
                 {quizElement}
-                <button className="checkAns" onClick={checkAns}>Check Answer</button>
+                    <div className="bottom">
+                        {
+                            !isCheck ?
+                            <button onClick={checkAns}>Check Answer</button> : 
+                            <div className="new-game-container">
+                                <p>You scored correct {score}/{quizData.length} answers</p>
+                                <button>Play Again</button>
+                            </div>
+                        }
+                    </div>
             </div>
             <img src='./images/blobs.png' className="blob2" alt=""></img>
         </>

@@ -11,16 +11,17 @@ export default function Quiz(props) {
                     <button
                         key={item.optId}
                         onClick={() => props.handleChosenOption(props.id, item.optId)}
-                        className={` options 
+                        className={`options 
                             ${item.isHeld && 'chosen'}
                             ${props.isCheck && item.isCorrect && 'correct'}
-                            ${props.isCheck && item.isHeld && !item.isCorrect && 'wrong'}
+                            ${(props.isCheck && !item.isCorrect) && (item.isHeld ? 'wrong check' : 'check')}
                         `}
                     >
                         {item.option}
                     </button>
                 ))}
             </div>
+            <hr></hr>
         </div>
     )
 }
