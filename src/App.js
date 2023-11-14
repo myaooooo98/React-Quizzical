@@ -10,12 +10,11 @@ export default function App() {
     const [isStart, setIsStart] = useState(false)
     const [isCheck, setIsCheck] = useState(false)
     const [score, setScore] = useState(0)
+    const [newGame, setNewGame] = useState(false)
 
     useEffect(() => {
         if (isStart) {
-            fetch('https://opentdb.com/api.php?amount=5')
-            .then(res => res.json())
-            .then(data => setQuizData(data.results))
+            startNewQuiz()
         }
     }, [isStart])
 
@@ -43,6 +42,30 @@ export default function App() {
         })
         setQuiz(newQuiz)
     }, [quizData])
+
+    useEffect(() => {
+        if (isCheck) {
+            quiz.forEach(item => {
+                const temp = item.optionsArr.filter(i => i.isCorrect && i.isHeld)
+                setScore(prev => prev + temp.length)
+            })  
+        }
+    }, [isCheck])
+
+    useEffect(() => {
+        if(newGame) {
+            startNewQuiz()
+            setIsCheck(false)
+            setScore(0)
+            setNewGame(false)
+        }
+    }, [newGame])
+
+    async function startNewQuiz() {
+        const response = await fetch('https://opentdb.com/api.php?amount=5')
+        const data = await response.json()
+        setQuizData(data.results)
+    }
 
     function shuffleArray(arr) {
         for (let i = arr.length - 1; i > 0; i--) {
@@ -100,7 +123,7 @@ export default function App() {
                 startQuiz = {() => setIsStart(true)}
             />
             
-            <div className={`quiz-container ${isStart ? '' : 'show'}`}>
+            <div className={`quiz-container ${isStart && 'show'}`}>
                 {quizElement}
                     <div className="bottom">
                         {
@@ -108,7 +131,7 @@ export default function App() {
                             <button onClick={checkAns}>Check Answer</button> : 
                             <div className="new-game-container">
                                 <p>You scored correct {score}/{quizData.length} answers</p>
-                                <button>Play Again</button>
+                                <button onClick={() => setNewGame(true)}>Play Again</button>
                             </div>
                         }
                     </div>
