@@ -5,7 +5,7 @@ import Intro from "./components/Intro";
 import Quiz from "./components/Quiz.-temp";
 
 export default function App() {
-    const [quizData, setQuizData] = useState([])
+    const [quizData, setQuizData] = useState()
     const [quiz, setQuiz] = useState([])
     const [isStart, setIsStart] = useState(false)
     const [isCheck, setIsCheck] = useState(false)
@@ -19,28 +19,30 @@ export default function App() {
     }, [isStart])
 
     useEffect(() => {
-        const newQuiz = quizData.map(data => {
-            const optionsArr = data.incorrect_answers
-                                .map(opt => ({
-                                    optId: nanoid(),
-                                    option: decode(opt),
-                                    isCorrect: false,
-                                    isHeld: false,
-                                }))
-            optionsArr.push({
-                optId: nanoid(),
-                option: decode(data.correct_answer),
-                isCorrect: true,
-                isHeld: false,
+        if(quizData) {
+            const newQuiz = quizData.map(data => {
+                const optionsArr = data.incorrect_answers
+                                    .map(opt => ({
+                                        optId: nanoid(),
+                                        option: decode(opt),
+                                        isCorrect: false,
+                                        isHeld: false,
+                                    }))
+                optionsArr.push({
+                    optId: nanoid(),
+                    option: decode(data.correct_answer),
+                    isCorrect: true,
+                    isHeld: false,
+                })
+    
+                return {
+                    id: nanoid(),
+                    question: decode(data.question),
+                    optionsArr: shuffleArray(optionsArr),
+                }
             })
-
-            return {
-                id: nanoid(),
-                question: decode(data.question),
-                optionsArr: shuffleArray(optionsArr),
-            }
-        })
-        setQuiz(newQuiz)
+            setQuiz(newQuiz)
+        }
     }, [quizData])
 
     useEffect(() => {
@@ -76,6 +78,7 @@ export default function App() {
     }
 
     function chosen(id, optId) {
+        // if there are answer chosen, then should disable all other answer
         setQuiz(prevQuiz => {
             const updatedQuiz = prevQuiz.map(quiz => {
                 if (quiz.id === id) {
@@ -101,6 +104,7 @@ export default function App() {
     }
 
     function checkAns() {
+        // add some checking, make sure each question has an answer
         setIsCheck(true)
     }
 

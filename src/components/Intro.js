@@ -2,10 +2,8 @@ import React from "react"
 
 export default function Intro(props) {
 
-    let containerClass = `intro-container ${props.isStart ? 'show' : ''}`
-
     return (
-        <div className={containerClass}>
+        <div className={`intro-container ${props.isStart && 'show'}`}>
             <h1 className="title">Quizzical</h1>
             <p className="description">Take quizzes to test your knowledge on a variety of fun and interesting topics!</p>
             <button 
