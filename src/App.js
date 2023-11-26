@@ -105,7 +105,22 @@ export default function App() {
 
     function checkAns() {
         // add some checking, make sure each question has an answer
-        setIsCheck(true)
+        const quesAns = []
+        quiz.forEach(ques => {
+            const item = { 
+                'ques': ques.question
+            }
+            ques.optionsArr.forEach(opt => {
+                if (opt.isHeld) {
+                    item['ans'] = opt.option
+                }
+            })
+            quesAns.push(item)
+        })
+        
+        if(quesAns.every(item => item.ans !== undefined)) {
+            setIsCheck(true)
+        }
     }
 
     const quizElement = quiz.map(item => (
