@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import ReactLoading from 'react-loading';
 import { nanoid } from "nanoid";
 import { decode } from "he";
 import Intro from "./components/Intro";
@@ -52,7 +53,7 @@ export default function App() {
                 setScore(prev => prev + temp.length)
             })  
         }
-    }, [isCheck])
+    }, [isCheck, quiz])
 
     useEffect(() => {
         if(newGame) {
@@ -82,20 +83,22 @@ export default function App() {
         setQuiz(prevQuiz => {
             const updatedQuiz = prevQuiz.map(quiz => {
                 if (quiz.id === id) {
-                    const updatedAnswers = quiz.optionsArr.map(option => {
-                        if (option.optId === optId) {
-                            return {
-                                ...option, 
-                                isHeld: !option.isHeld,
-                                newClass: option.isHeld ? 'options chosen' : 'options'
+                    if (quiz.optionsArr.every(item => !item.isHeld)) {
+                        const updatedAnswers = quiz.optionsArr.map(option => {
+                            if (option.optId === optId) {
+                                return {
+                                    ...option, 
+                                    isHeld: !option.isHeld,
+                                    newClass: option.isHeld ? 'options chosen' : 'options'
+                                }
                             }
-                        }
-                        return option
-                    })
-                    return {
-                        ...quiz,
-                        optionsArr: updatedAnswers
-                    } 
+                            return option
+                        })
+                        return {
+                            ...quiz,
+                            optionsArr: updatedAnswers
+                        } 
+                    }
                 }
                 return quiz
             })
@@ -141,7 +144,9 @@ export default function App() {
                 isStart = {isStart} 
                 startQuiz = {() => setIsStart(true)}
             />
-            
+
+            {/* FIXME!!! show it when the quiz is not fetch yet */}
+            <ReactLoading type="spinningBubbles" color="red" />
             <div className={`quiz-container ${isStart && 'show'}`}>
                 {quizElement}
                     <div className="bottom">
