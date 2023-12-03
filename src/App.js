@@ -78,18 +78,21 @@ export default function App() {
         return arr
     }
 
+    console.log({quiz})
+
     function chosen(id, optId) {
         // if there are answer chosen, then should disable all other answer
         setQuiz(prevQuiz => {
             const updatedQuiz = prevQuiz.map(quiz => {
                 if (quiz.id === id) {
-                    if (quiz.optionsArr.every(item => !item.isHeld)) {
+                    const optHaveBeenHeld = quiz.optionsArr.find(item => item.optId === optId).isHeld
+                    const noOptIsHeld = quiz.optionsArr.every(item => !item.isHeld)
+                    if (optHaveBeenHeld || noOptIsHeld) {
                         const updatedAnswers = quiz.optionsArr.map(option => {
                             if (option.optId === optId) {
                                 return {
                                     ...option, 
                                     isHeld: !option.isHeld,
-                                    newClass: option.isHeld ? 'options chosen' : 'options'
                                 }
                             }
                             return option
@@ -146,7 +149,11 @@ export default function App() {
             />
 
             {/* FIXME!!! show it when the quiz is not fetch yet */}
-            <ReactLoading type="spinningBubbles" color="red" />
+            { quizData === undefined && 
+                <div className="intro-container">
+                    <ReactLoading type="spinningBubbles" color="#4D5B9E"/>
+                </div>
+            }
             <div className={`quiz-container ${isStart && 'show'}`}>
                 {quizElement}
                     <div className="bottom">

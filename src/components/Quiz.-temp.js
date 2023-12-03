@@ -13,8 +13,6 @@ export default function Quiz(props) {
                         onClick={() => props.handleChosenOption(props.id, item.optId)}
                         className={`options 
                             ${item.isHeld && 'chosen'}
-                            // FIXME!!!!
-                            ${!item.isHeld && 'disable'}
                             ${props.isCheck && item.isCorrect && 'correct'}
                             ${(props.isCheck && !item.isCorrect) && (item.isHeld ? 'wrong check' : 'check')}
                         `}
