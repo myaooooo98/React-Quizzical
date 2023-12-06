@@ -1,38 +1,26 @@
-import React from "react"
-import AnsOption from "./AnsOption";
+import React from "react";
 
 export default function Quiz(props) {
-
-    const [options, setOptions] = React.useState(props.options)
-
-    const optionsElement = options.map(item => (
-        <AnsOption 
-            key = {item.id}
-            option = {item.option}
-            isCorrect = {item.isCorrect}
-            handleClick = {() => chosen(item.id)}
-        />
-    ))
-
-    function chosen(id) {
-        setOptions(prevOptions => prevOptions.map(option => {
-            if (option.id === id) {
-                return {
-                    ...option,
-                    isChosen: !option.isChosen
-                }
-            } else {
-                return option
-            }
-        }))
-    }
 
     return (
         <div className="question-container">
             <h3 className="question">{props.question}</h3>
             <div className="options-container">
-                {optionsElement}
+                {props.options.map(item => (
+                    <button
+                        key={item.optId}
+                        onClick={() => props.handleChosenOption(props.id, item.optId)}
+                        className={`options 
+                            ${item.isHeld && 'chosen'}
+                            ${props.isCheck && item.isCorrect && 'correct'}
+                            ${(props.isCheck && !item.isCorrect) && (item.isHeld ? 'wrong check' : 'check')}
+                        `}
+                    >
+                        {item.option}
+                    </button>
+                ))}
             </div>
+            <hr></hr>
         </div>
     )
 }

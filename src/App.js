@@ -3,7 +3,7 @@ import ReactLoading from 'react-loading';
 import { nanoid } from "nanoid";
 import { decode } from "he";
 import Intro from "./components/Intro";
-import Quiz from "./components/Quiz.-temp";
+import Quiz from "./components/Quiz";
 
 export default function App() {
     const [quizData, setQuizData] = useState()
@@ -57,6 +57,7 @@ export default function App() {
 
     useEffect(() => {
         if(newGame) {
+            setQuizData()
             startNewQuiz()
             setIsCheck(false)
             setScore(0)
@@ -77,8 +78,6 @@ export default function App() {
         }
         return arr
     }
-
-    console.log({quiz})
 
     function chosen(id, optId) {
         // if there are answer chosen, then should disable all other answer
@@ -148,7 +147,6 @@ export default function App() {
                 startQuiz = {() => setIsStart(true)}
             />
 
-            {/* FIXME!!! show it when the quiz is not fetch yet */}
             { quizData === undefined && 
                 <div className="intro-container">
                     <ReactLoading type="spinningBubbles" color="#4D5B9E"/>
